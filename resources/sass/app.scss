@@ -1,8 +1,21 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import './bootstrap.min.css';
+body{
+    direction: rtl;
+}
+.dashboard_navbar{
+    background: #307473;
+    height: 40px;
+    padding: 15px 20px 40px 15px;
+}
+a{
+    text-decoration: none;
+}
+.dashboard_menu_item{
+    color:white;
+}
+.row{
+    margin: 0;
+}
+.p_white{
+    color:white;
+}
