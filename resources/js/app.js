@@ -1,6 +1,10 @@
 import Vue from  'vue'
 import VueRouter from 'vue-router'
 
+import Vuesax from 'vuesax'
+import 'vuesax/dist/vuesax.css'
+Vue.use(Vuesax)
+
 import dashboard from './components/dashboard'
 import tablo_home from './components/tablo/home'
 import technical_home from './components/technical/home'

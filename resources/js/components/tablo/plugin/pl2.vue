@@ -1,24 +1,4 @@
 <template>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-2"><p v-on:click="get_data(1)">خوب ها</p></div>
-                <div class="col-md-2"><p v-on:click="get_data(2)">متوسط ها</p></div>
-                <div class="col-md-2"><p v-on:click="get_data(3)">بد ها</p></div>
-                <div class="col-md-2"><p v-on:click="get_data(4)">افتضاح ها</p></div>
-                <div class="col-md-2"><p v-on:click="get_data(5)">ریده ها</p></div>
-                <div class="col-md-1"><p v-on:click="get_data(6)">آشغال  ها</p></div>
-                <div class="col-md-1"><p v-on:click="get_data(7)"> نکبت ها </p></div>
-
-            </div>
-
-            <div class="row">
-                {{sorted}}
-            </div>
-        </div>
-
-    </div>
-
     
 </template>
 
@@ -33,7 +13,7 @@ export default {
         }
     },
     mounted(){
-        axios.get('http://localhost:8000/api/plugin/Daily_individual_cash_inflow/2020-07-28')
+        axios.get('http://localhost:8000/api/plugin/Daily_individual_cash_inflow/2020-07-29')
         .then(res => (
             this.daily_individual_cash_inflow = res.data
         ))
