@@ -8,7 +8,7 @@
                 سهام ها
             </v-tab>
 
-            <v-tab>
+            <v-tab v-on:click="group_select">
                  گروه ها 
             </v-tab>
 
@@ -32,17 +32,23 @@
                         :items-per-page=200
                         :mobile-breakpoint=300
                     >
+                        <template v-slot:item.n="{ item }">
+                            <p  style="text-align:right;margin:4px"><a v-bind:href="item.n">{{ item.n }}</a></p>
+                            <p  style="text-align:right;margin:4px;font-size:8px"> {{item.g_fa}}</p>
+                        </template>
+
                         <template v-slot:item.d="{ item }">
-                            <p :style="getColor(item.d)" style="direction:ltr;margin:0">{{ item.d }}</p>
+                            <p :class="getColor(item.d)" style="direction:ltr;margin:0">{{ item.d }}</p>
                         </template>
           
                         <template v-slot:item.w="{ item }">
-                            <p :style="getColor(item.w)" style="direction:ltr;margin:0">{{ item.w }}</p>
+                            <p  style="direction:ltr;margin:0;font-weight:bold">{{ item.w }}</p>
                         </template>
           
                        <template v-slot:item.m="{ item }">
-                            <p :style="getColor(item.m)" style="direction:ltr;margin:0">{{ item.m }}</p>
+                            <p  style="direction:ltr;margin:0;font-weight:bold">{{ item.m }}</p>
                         </template>
+
                         <template v-slot:header.n="{ header }">
                           <v-text-field
                               v-model="search"
@@ -51,14 +57,21 @@
                               single-line
                               hide-details
                           ></v-text-field>
-
                         </template>
+
                 </v-data-table>
             
             </v-tab-item>
 
             <v-tab-item>
-                پلاگین دوم
+                  <v-data-table
+                        :headers="headers"
+                        :items="group_data"
+                        :search="search"
+                        :items-per-page=200
+                        :mobile-breakpoint=300
+                    >
+                                    </v-data-table>
 
             </v-tab-item>
 
@@ -99,21 +112,42 @@ export default {
 
           { text: 'رنک', value: 'protein' },
         ],
-        desserts: []
+        desserts: [],
+        group : [],
+        group_data : []
       }
     },
     methods: {
       getColor (item) {
-        if (item > 0 && item < 10) return 'color:#1E5412'
-        else if (item > 10 && item < 40 ) return 'color:#3CA824'
-        else if ( item > 40 ) return 'color:#7DDF68'
+        if (item > 0 && item < 10) return 'normal_arrow'
+        else if (item > 10 && item < 40 ) return 'buy_arrow'
+        else if ( item > 40 ) return 'buy_strong_arrow'
         else if (item > -10 && item < 0 ) return 'color:#5A0C13'
-        else if (item > -40 && item < -10 ) return 'color:#D71D2D'
-        else if ( item < -40 ) return 'color:#EB6F7A'
-
-
+        else if (item > -40 && item < -10 ) return 'sell_arrow'
+        else if ( item < -40 ) return 'sell_strong_arrow'
         else return 'blue'
       },
+
+      group_select:function(){
+        for(var i=0;i<this.all.length;i++){
+          if(!this.group.includes(this.all[i].g)){
+            this.group.push(this.all[i].g)
+          }
+        }
+      for(var j=0;j<this.group.length;j++){
+        var dd = 0
+        var ww = 0
+
+        for(var k=0;k<this.all.length;k++){
+          if(this.all[k].g == this.group[j]){
+            dd = dd + this.all[k].d
+            ww = ww + this.all[k].w
+
+          }
+        }
+        this.group_data.push({'n':this.group[j],'d':dd,'w':ww})
+        }
+      }
     },
   }
 </script>

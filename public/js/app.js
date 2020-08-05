@@ -2316,6 +2316,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -2355,12 +2368,39 @@ __webpack_require__.r(__webpack_exports__);
         text: 'رنک',
         value: 'protein'
       }],
-      desserts: []
+      desserts: [],
+      group: [],
+      group_data: []
     };
   },
   methods: {
     getColor: function getColor(item) {
-      if (item > 0 && item < 10) return 'color:#1E5412';else if (item > 10 && item < 40) return 'color:#3CA824';else if (item > 40) return 'color:#7DDF68';else if (item > -10 && item < 0) return 'color:#5A0C13';else if (item > -40 && item < -10) return 'color:#D71D2D';else if (item < -40) return 'color:#EB6F7A';else return 'blue';
+      if (item > 0 && item < 10) return 'normal_arrow';else if (item > 10 && item < 40) return 'buy_arrow';else if (item > 40) return 'buy_strong_arrow';else if (item > -10 && item < 0) return 'color:#5A0C13';else if (item > -40 && item < -10) return 'sell_arrow';else if (item < -40) return 'sell_strong_arrow';else return 'blue';
+    },
+    group_select: function group_select() {
+      for (var i = 0; i < this.all.length; i++) {
+        if (!this.group.includes(this.all[i].g)) {
+          this.group.push(this.all[i].g);
+        }
+      }
+
+      for (var j = 0; j < this.group.length; j++) {
+        var dd = 0;
+        var ww = 0;
+
+        for (var k = 0; k < this.all.length; k++) {
+          if (this.all[k].g == this.group[j]) {
+            dd = dd + this.all[k].d;
+            ww = ww + this.all[k].w;
+          }
+        }
+
+        this.group_data.push({
+          'n': this.group[j],
+          'd': dd,
+          'w': ww
+        });
+      }
     }
   }
 });
@@ -4401,7 +4441,9 @@ var render = function() {
         [
           _c("v-tab", [_vm._v("\n            سهام ها\n        ")]),
           _vm._v(" "),
-          _c("v-tab", [_vm._v("\n             گروه ها \n        ")])
+          _c("v-tab", { on: { click: _vm.group_select } }, [
+            _vm._v("\n             گروه ها \n        ")
+          ])
         ],
         1
       ),
@@ -4451,6 +4493,40 @@ var render = function() {
                 },
                 scopedSlots: _vm._u([
                   {
+                    key: "item.n",
+                    fn: function(ref) {
+                      var item = ref.item
+                      return [
+                        _c(
+                          "p",
+                          {
+                            staticStyle: {
+                              "text-align": "right",
+                              margin: "4px"
+                            }
+                          },
+                          [
+                            _c("a", { attrs: { href: item.n } }, [
+                              _vm._v(_vm._s(item.n))
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          {
+                            staticStyle: {
+                              "text-align": "right",
+                              margin: "4px",
+                              "font-size": "8px"
+                            }
+                          },
+                          [_vm._v(" " + _vm._s(item.g_fa))]
+                        )
+                      ]
+                    }
+                  },
+                  {
                     key: "item.d",
                     fn: function(ref) {
                       var item = ref.item
@@ -4458,8 +4534,8 @@ var render = function() {
                         _c(
                           "p",
                           {
-                            staticStyle: { direction: "ltr", margin: "0" },
-                            style: _vm.getColor(item.d)
+                            class: _vm.getColor(item.d),
+                            staticStyle: { direction: "ltr", margin: "0" }
                           },
                           [_vm._v(_vm._s(item.d))]
                         )
@@ -4474,8 +4550,11 @@ var render = function() {
                         _c(
                           "p",
                           {
-                            staticStyle: { direction: "ltr", margin: "0" },
-                            style: _vm.getColor(item.w)
+                            staticStyle: {
+                              direction: "ltr",
+                              margin: "0",
+                              "font-weight": "bold"
+                            }
                           },
                           [_vm._v(_vm._s(item.w))]
                         )
@@ -4490,8 +4569,11 @@ var render = function() {
                         _c(
                           "p",
                           {
-                            staticStyle: { direction: "ltr", margin: "0" },
-                            style: _vm.getColor(item.m)
+                            staticStyle: {
+                              direction: "ltr",
+                              margin: "0",
+                              "font-weight": "bold"
+                            }
                           },
                           [_vm._v(_vm._s(item.m))]
                         )
@@ -4527,7 +4609,21 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-tab-item", [_vm._v("\n            پلاگین دوم\n\n        ")])
+          _c(
+            "v-tab-item",
+            [
+              _c("v-data-table", {
+                attrs: {
+                  headers: _vm.headers,
+                  items: _vm.group_data,
+                  search: _vm.search,
+                  "items-per-page": 200,
+                  "mobile-breakpoint": 300
+                }
+              })
+            ],
+            1
+          )
         ],
         1
       )

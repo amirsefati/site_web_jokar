@@ -188,6 +188,45 @@
 .item_box_intabbar{
     border: .4px solid #DDE0E8;
     background: #F8F9FD;
+}
+.sell_arrow{
+    color:#D71D2D
+}
+.sell_arrow:before{
+    content: "";
+    padding-left: 14px;
+    background: url(/assets/img/plugin/1_sell_arrow.svg) no-repeat;
+    background-position-y:35%;
+}
+.sell_strong_arrow{
+    color:#EB6F7A
+}
+.sell_strong_arrow:before{
+    content: "";
+    padding-left: 14px;
+    background: url(/assets/img/plugin/2_sell_arrow.svg) no-repeat;
+    background-position-y:35%;
+}
+.buy_arrow{
+    color:#3CA824
+}
+.buy_arrow:before{
+    content: "";
+    padding-left: 14px;
+    background: url(/assets/img/plugin/1_arrow.svg) no-repeat;
+    background-position-y:35%;
+}
+.buy_strong_arrow{
+    color:#7DDF68;
+}
+.buy_strong_arrow:before{
+    content: "";
+    padding-left: 14px;
+    background: url(/assets/img/plugin/2_arrow.svg) no-repeat;
+    background-position-y:35%;
+}
+.normal_arrow{
+    color: black;
 }body {
   direction: rtl !important;
 }
