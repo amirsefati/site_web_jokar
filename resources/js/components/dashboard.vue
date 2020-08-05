@@ -1,10 +1,13 @@
 <template>
     <div class="container-fluid p-0">
+        <div class="row show_only_in_mobile">
+        </div>
+
         <div class="row nav_top_widget">
             <!-- main  -->
             <div class="col-md-2 col-sm-4 col-4 line_after">
                 <div class="nav_top_widget_item_head">
-                    <span class="nav_top_widget_item_head_name">خساپا</span>
+                    <span class="nav_top_widget_item_head_name pr-2">خساپا</span>
                     <span class="nav_top_widget_item_head_bumber">3270.1</span>
                 </div>
                 
@@ -17,7 +20,7 @@
             
               <div class="col-md-2 col-sm-4 col-4 line_after">
                 <div class="nav_top_widget_item_head">
-                    <span class="nav_top_widget_item_head_name">ونوین</span>
+                    <span class="nav_top_widget_item_head_name pr-2">ونوین</span>
                     <span class="nav_top_widget_item_head_bumber">3270.1</span>
                 </div>
                 
@@ -83,39 +86,47 @@
     
         <div class="row header_nav_sticky">
             <div class="col-md-2 hidden_phone"></div>
-            <div class="col-md-1 col-1">
+            <div class="col-md-1 col-3">
                 <div class="header_nav_sticky_logo">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="22" viewBox="0 0 33 19"><path fill="#2196F3" d="M29.032 7.382a5.47 5.47 0 0 1 .963 2.872A4.502 4.502 0 0 1 28.5 19H6a5.98 5.98 0 0 1-4.222-1.737l9.546-7.556c.35.187.75.293 1.176.293a2.49 2.49 0 0 0 1.066-.238l4.55 3.981a2.5 2.5 0 1 0 4.711-.157l6.205-6.204zm-1.414-1.414l-6.204 6.204A2.494 2.494 0 0 0 20.5 12a2.49 2.49 0 0 0-1.066.238l-4.55-3.981a2.5 2.5 0 1 0-4.801-.118L.608 15.638A6 6 0 0 1 6.061 7a8.001 8.001 0 0 1 15.625-1.227A5.474 5.474 0 0 1 24.5 5c1.157 0 2.231.358 3.118.968z"></path></svg>
+                    <img src="/assets/img/logo.png" class="logo_style" alt="">
                 </div>   
             </div>
 
-            <div class="col-md-6 col-4">
+            <div class="col-md-5 col-6 ">
                 <div class="header_nav_sticky_search">
-                    <vs-select
-                        filter
-                        placeholder="جست و جو در نماد ها"
-                        v-model="value">
-
-                        <vs-option label="خساپا" value="1">
-                        خساپا
-                        </vs-option>
-                        <vs-option label="سبزوا" value="2">
-                        سبزوا
-                        </vs-option>
-                        <vs-option label="لپارس" value="3">
-                        لپارس
-                        </vs-option>
-                        <vs-option label="خودرو" value="4">
-                        خودرو
-                        </vs-option>
+  <vs-select
+        filter
+        placeholder="جست و جوی نماد"
+        v-model="value"
+      >
+        <vs-option label="خساپا" value="1">
+          خساپا
+        </vs-option>
+        <vs-option label="سبزوا" value="2">
+          سبزوا
+        </vs-option>
+        <vs-option label="خودرو" value="3">
+          خودرو
+        </vs-option>
+        <vs-option label="فولاد" value="4">
+          فولاد
+        </vs-option>
         
-                     </vs-select>
+      </vs-select>
                 </div> 
 
             </div>
+
+            <div class="col-md-1 hidden_phone">
+                <div class="btn_danger_header">
+                    <p style="color:white;text-align:center;font-size:12px;margin:0px;padding:4px 0px 2px 0px;font-weight:bold">اکانت ویژه</p>
+                    <p style="color:#EF5350;text-align:center;font-size:9px;margin:0px">سی روز اکانت رایگان</p>
+
+                </div>
+            </div>
         </div>
 
-        <div class="row header_nav_menu">
+        <div class="row header_nav_menu hidden_phone">
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <nav id="menu">
@@ -123,22 +134,23 @@
                 <input type="checkbox" id="tm">
                 <ul class="main-menu clearfix">
                     <li><a href="#">گروه ها</a></li>
+                    <li><a href="#">آموزش</a></li>
+                   
                     <li><a href="#">بازار سرمایه
                         <span class="drop-icon">▾</span>
                         <label title="Toggle Drop-down" class="drop-icon" for="sm1">▾</label>
                     </a>
                     <input type="checkbox" id="sm1">
                     <ul class="sub-menu">
-                        <li><a href="#">سهام ها</a></li>
-                        <li><a href="#">Item 2.2
+                        <li><a href="#">سهام
                             <span class="drop-icon">▾</span>
                             <label title="Toggle Drop-down" class="drop-icon" for="sm2">▾</label>
                         </a>
                         <input type="checkbox" id="sm2">
                         <ul class="sub-menu">
-                            <li><a href="#">سهام ها</a></li>
-                            <li><a href="#">Item 2.2.2</a></li>
-                            <li><a href="#">Item 2.2.3</a></li>
+                            <li><router-link :to="{name:'pl1'}">تابلو</router-link></li>
+                            <li><a href="#">تکنیکال</a></li>
+                            <li><a href="#">فاندامنتال</a></li>
                         </ul>
                         </li>
                         <li><a href="#">Item 3.4</a></li>
@@ -151,15 +163,18 @@
         </div>
 
 
-        <div class="margin_top_content"></div>
-        <router-view></router-view>
+        <div class="row">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
   export default {
      data:() => ({
-        value: ''
-      })
+        value: '',       
+      }),
+      
+  
   }
   </script>

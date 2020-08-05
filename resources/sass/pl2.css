@@ -1,0 +1,19 @@
+.v-chip.v-size--default{
+    background: transparent!important;
+}
+
+.green{
+    color:green!important;
+}
+
+.red{
+    color:red!important;
+}
+.box_pl2{
+    box-shadow:0 0 0 1px #e0e3eb;
+    border-radius:6px;
+}
+.item_box_intabbar{
+    border: .4px solid #DDE0E8;
+    background: #F8F9FD;
+}

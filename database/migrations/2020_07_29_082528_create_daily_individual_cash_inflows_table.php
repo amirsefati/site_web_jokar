@@ -15,7 +15,6 @@ class CreateDailyIndividualCashInflowsTable extends Migration
     {
         Schema::create('daily_individual_cash_inflows', function (Blueprint $table) {
             $table->id();
-            $table->text('date');
             $table->longText('data');
             $table->timestamps();
         });
