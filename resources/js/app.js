@@ -5,6 +5,10 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify)
 import '@mdi/font/css/materialdesignicons.css'
 
+import VueApexCharts from 'vue-apexcharts'
+Vue.component('apexchart', VueApexCharts)
+
+
 import Vuesax from 'vuesax'
 import 'vuesax/dist/vuesax.css' 
 Vue.use(Vuesax)
@@ -14,6 +18,7 @@ import technical_home from './components/technical/home'
 import pl1 from './components/tablo/plugin/pl1'
 import pl2 from './components/tablo/plugin/pl2'
 import pl3 from './components/tablo/plugin/pl3'
+
 
 Vue.use(VueRouter)
 

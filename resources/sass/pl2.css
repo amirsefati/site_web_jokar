@@ -56,3 +56,22 @@
 .normal_arrow{
     color: black;
 }
+
+.v-btn__content{
+    letter-spacing: 0px!important;
+}
+.v-item-group{
+    text-align: center!important;
+}
+.apexcharts-text tspan{
+    direction: ltr!important;
+    font-family: Vazir!important;
+}
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title{
+    font-family: Vazir!important;   
+    padding: 3px!important;
+}
+.apexcharts-tooltip *{
+    font-family: Vazir!important;   
+    padding: 1px!important;   
+}

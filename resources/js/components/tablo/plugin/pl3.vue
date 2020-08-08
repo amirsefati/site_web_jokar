@@ -98,7 +98,7 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
                     }
                 })
                 aa.sort(function(a,b){
-                    return a[1] - b[1]
+                    return b[1] - a[1]
                 })
             }
             else if(level == 7){
