@@ -16,6 +16,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v26.0.2/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/jalali-moment/dist/jalali-moment.browser.js"></script>
+    <script>
+        moment.locale('fa');
+    </script>
     <style>
     body{
         font-family:Vazir !important;
@@ -30,4 +34,5 @@
         <dashboard></dashboard>
     </div>
 </body>
+
 </html>

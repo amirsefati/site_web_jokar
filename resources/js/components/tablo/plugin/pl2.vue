@@ -15,6 +15,10 @@
             <v-tab v-on:click="group_chart">
                 ساختار نموداری گروه ها 
             </v-tab>
+
+            <v-tab v-on:click="group_series">
+                  ورود و خروج حقیقی در کل بازار
+            </v-tab>
         </v-tabs>
 
         <v-tabs-items v-model="tab">
@@ -104,38 +108,50 @@
                       
             </v-tab-item>
 
-        <v-tab-item>
-          <div class="item_box_intabbar p-2">
-            <v-col cols="12" sm="12" class="py-2">
-              <p>انتخاب بازه نمایشی</p>
+            <v-tab-item>
+              <div class="item_box_intabbar p-2">
+                <v-col cols="12" sm="12" class="py-2">
+                  <p style="font-size:14px">
+                  یکی از مهمترین مولفه های موجود در بازار اوراق بهادار که جهت دهنده است به روند سهم، مورد توجه قرار گرفتن  و یا عدم توجه به آن سهم توسط معامله گران خرد یا حقیقی ها است که یکی از روش های اندازه گیری این توجه یا عدم توجه، خرید یا فروش این اشخاص در سهام است.
+                  در جدول زیر خرید و فروش های حقیقی ها بر اساس سه بازه زمانی روزانه، هفتگی و ماهانه دسته بندی شده است. 
+                  و در قسمت رنک، هر نماد دارای رتبه ای بر اساس عملکرد این سه بازه زمانی است. نمادها با رنک های بالاتر نشان دهنده ورود پول حقیقی و مورد توجه قرار گرفتن سهام توسط معامله گران خرد در سه دوره زمانی ذکر شده است.           
+                </p>
+                <br>
+                  <p>انتخاب بازه نمایشی</p>
 
-              <v-btn-toggle
-                v-model="toggle_multiple"
-                dense
-                background-color="primary">
+                  <v-btn-toggle
+                    v-model="toggle_multiple"
+                    dense
+                    background-color="primary">
 
-                <v-btn v-on:click="group_chart_daily">
-                  روزانه
-                </v-btn>
+                    <v-btn v-on:click="group_chart_daily">
+                      روزانه
+                    </v-btn>
 
-                <v-btn v-on:click="group_chart_week">
-                  هفتگی
-                </v-btn>
+                    <v-btn v-on:click="group_chart_week">
+                      هفتگی
+                    </v-btn>
 
-                <v-btn v-on:click="group_chart_month">
-                  ماهانه
-                </v-btn>
+                    <v-btn v-on:click="group_chart_month">
+                      ماهانه
+                    </v-btn>
 
-                <v-btn>
-                  سالانه
-                </v-btn>
-              </v-btn-toggle>
-            </v-col>
-          </div>
+                    <v-btn>
+                      سالانه
+                    </v-btn>
+                  </v-btn-toggle>
+                </v-col>
+              </div>
 
-          <apexchart width="100%" height="1200px" :options="options" :series="series"></apexchart>
-       
-        </v-tab-item>
+              <apexchart width="100%" height="1200px" :options="options" :series="series"></apexchart>
+          
+            </v-tab-item>
+
+            <v-tab-item class="mt-5 mb-5">
+              <highcharts :options="chartOptions"></highcharts>
+
+             
+            </v-tab-item>
 
         </v-tabs-items>
 
@@ -143,6 +159,8 @@
     </div>
 </template>
 
+
+</script>
 <script>
 import axios from 'axios'
 export default {    
@@ -208,14 +226,23 @@ export default {
               horizontal: true,
               colors: {
               ranges: [{
-                from: -100,
-                to: -46,
-                color: '#F15B46'
+                from: 50,
+                to: 5000,
+                color: '#55F02E'
               }, {
-                from: -45,
+                from: 0,
+                to: 50,
+                color: '#4EF46F'
+              }, {
+                from: -50,
                 to: 0,
-                color: '#FEB019'
-              }]
+                color: '#F46969'
+              }, {
+                from: -5000,
+                to: -50,
+                color: '#F02E2E'
+              }
+              ]
             },
             }
           },
@@ -231,6 +258,23 @@ export default {
           name: 'میلیارد تومان',
           data: []
         }],
+       chartOptions: {
+         series: [{
+        data: [{
+            x: 1147651200000,
+            y: 67.79
+        }, {
+            x: 1147737600000,
+            y: 64.98
+        }, {
+            x: 1147824000000,
+            y: 65.26
+        }]
+    }],
+    xAxis: {
+        type: 'datetime'
+    }
+      }
       }
     },
     methods: {
@@ -245,7 +289,7 @@ export default {
       },
       getColor_group (item) {
         if (item > 0 && item < 100 ) return 'buy_arrow'
-        else if ( item > 100 ) return 'buy_strong_arrow'
+        else if ( item > 50 ) return 'buy_strong_arrow'
 
         else if (item < 0 && item > -100 ) return 'sell_arrow'
         else if ( item < -100 ) return 'sell_strong_arrow'
@@ -254,6 +298,10 @@ export default {
 
       group_table:function(){
       this.group_data = []  
+      this.chart_group_daily = []
+      this.chart_group_week = []
+      this.chart_group_month = []
+
         for(var i=0;i<this.all.length;i++){
           if(!this.group.includes(this.all[i].g)){
             this.group.push(this.all[i].g)
@@ -279,6 +327,8 @@ export default {
 
       group_chart:function(){
         this.chart_group_daily = []
+        this.series[0].data = []
+        this.options.xaxis.categories = []
         this.group_table()
 
           this.chart_group_daily.sort(function(a,b){return a[1]-b[1]}).reverse()
@@ -308,6 +358,10 @@ export default {
           val.push(this.chart_group_month[i][1])
          }
         this.series = [{data:val}]
+      },
+
+      group_series:function(){
+       
       }
     }
   }
