@@ -16,4 +16,6 @@ Route::prefix('archive/api/')->group(function(){
 
 Route::prefix('api/plugin/')->group(function(){
     Route::get('daily_individual_cash_inflows','tablo\plugins_1@get_data');
+    Route::get('micro_entry_and_exit','tablo\plugins_1@get_data_2');
+
 });

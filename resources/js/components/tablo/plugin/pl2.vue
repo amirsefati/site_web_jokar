@@ -1,5 +1,5 @@
 <template>
-    <div class="box_pl2 m-2">
+    <div class="box_pl2 mt-5 mr-2 ml-2">
         <v-tabs
             v-model="tab"            
         >
@@ -17,7 +17,7 @@
             </v-tab>
 
             <v-tab v-on:click="group_series">
-                  ورود و خروج حقیقی در کل بازار
+                کل بازار
             </v-tab>
         </v-tabs>
 
@@ -147,8 +147,19 @@
           
             </v-tab-item>
 
-            <v-tab-item class="mt-5 mb-5">
-              <highcharts :options="chartOptions"></highcharts>
+            <v-tab-item class=" mb-5">
+              <div class="item_box_intabbar p-2">
+                <p style="font-size:14px;margin-bottom:6px;font-weight:bold">  ورود و خروج نقدینگی حقیقی بر حسب گروه</p>
+                <p style="font-size:14px">
+                  یکی از مهمترین مولفه های موجود در بازار اوراق بهادار که جهت دهنده است به روند سهم، مورد توجه قرار گرفتن  و یا عدم توجه به آن سهم توسط معامله گران خرد یا حقیقی ها است که یکی از روش های اندازه گیری این توجه یا عدم توجه، خرید یا فروش این اشخاص در سهام است.
+                  در جدول زیر خرید و فروش های حقیقی ها بر اساس سه بازه زمانی روزانه، هفتگی و ماهانه دسته بندی شده است. 
+                  و در قسمت رنک، هر نماد دارای رتبه ای بر اساس عملکرد این سه بازه زمانی است. نمادها با رنک های بالاتر نشان دهنده ورود پول حقیقی و مورد توجه قرار گرفتن سهام توسط معامله گران خرد در سه دوره زمانی ذکر شده است.           
+                </p>
+              </div>
+              <div v-if="show_ss == 1">
+              <highcharts :constructorType="'stockChart'" :options="chartOptions"></highcharts>
+
+              </div>
 
              
             </v-tab-item>
@@ -176,6 +187,9 @@ export default {
       },
     data () {
       return {
+        arr_chart_col:[],
+        arr_chart_line:[],
+        show_ss:0,
         toggle_multiple: 0,
         all : '',
         tab:null,
@@ -215,7 +229,7 @@ export default {
         chart_group_daily : [],
         chart_group_week : [],
         chart_group_month : [],
-        
+        micro_entry : [],
         options: {
           chart: {
             type: 'bar',
@@ -259,21 +273,42 @@ export default {
           data: []
         }],
        chartOptions: {
-         series: [{
-        data: [{
-            x: 1147651200000,
-            y: 67.79
-        }, {
-            x: 1147737600000,
-            y: 64.98
-        }, {
-            x: 1147824000000,
-            y: 65.26
-        }]
-    }],
-    xAxis: {
-        type: 'datetime'
-    }
+         chart:{
+           height:600
+         },
+        series: [{
+            type: 'column',
+            name: 'مقدار',
+            data: [],
+            
+        },
+        {
+            type: 'line',
+            name: 'مقدار',
+            data: [],
+            yAxis: 1
+            
+        },
+        ],
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis:[
+          {
+          title:{
+            text:'اولی'
+          },
+          opposite: false
+          },
+          {
+            title:{
+            text:'دومی'
+          },
+          }],
+        title:{
+          text:'امیر'
+        },
+      
       }
       }
     },
@@ -361,7 +396,21 @@ export default {
       },
 
       group_series:function(){
-       
+        axios.get("http://localhost:8000/api/plugin/micro_entry_and_exit")
+        .then(res => {
+          this.micro_entry = res.data
+                    
+        }).then(()=>{
+          for(var i=0;i<this.micro_entry.length;i++){
+            this.arr_chart_col.push([new Date(this.micro_entry[i][0]).getTime(),this.micro_entry[i][1]])
+            this.arr_chart_line.push([new Date(this.micro_entry[i][0]).getTime(),this.micro_entry[i][2]])
+            }
+          }).then(()=>{
+            this.chartOptions.series[0].data = this.arr_chart_col
+            this.chartOptions.series[1].data = this.arr_chart_line
+
+            this.show_ss = 1
+          })
       }
     }
   }

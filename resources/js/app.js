@@ -5,7 +5,12 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify)
 import '@mdi/font/css/materialdesignicons.css'
 
-import Highcharts from 'highcharts';
+import Highcharts from "highcharts";
+import Stock from "highcharts/modules/stock";
+import HighchartsVue from 'highcharts-vue'
+
+Stock(Highcharts);
+Vue.use(HighchartsVue)
 
 Highcharts.dateFormats = {
     'a': function(ts) {
@@ -43,8 +48,6 @@ Highcharts.dateFormats = {
 import VueApexCharts from 'vue-apexcharts'
 Vue.component('apexchart', VueApexCharts)
 
-import HighchartsVue from 'highcharts-vue'
-Vue.use(HighchartsVue)
 
 import Vuesax from 'vuesax'
 import 'vuesax/dist/vuesax.css' 

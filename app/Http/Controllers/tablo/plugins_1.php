@@ -38,5 +38,10 @@ class plugins_1 extends Controller
         $res = Daily_individual_cash_inflow::where('id',1)->first()->data;
         return json_encode($res);
     }
+
+    public function get_data_2(){
+        $res = Daily_individual_cash_inflow::where('id',2)->first()->data;
+        return json_encode($res);
+    }
 }
 

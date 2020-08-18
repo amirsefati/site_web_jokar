@@ -253,6 +253,9 @@ text{
     font-weight: bold!important;
     font-size: 12px!important;
 }
+.highcharts-credits{
+    display: none!important;
+}
 body {
   direction: rtl !important;
 }
